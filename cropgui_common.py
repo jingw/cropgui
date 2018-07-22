@@ -25,9 +25,7 @@ import os
 import math
 
 def getoutput(c):
-    p = subprocess.Popen(c, shell=isinstance(c, str), stdout=subprocess.PIPE)
-    stdout, stderr = p.communicate()
-    return stdout
+    return subprocess.check_output(c, shell=isinstance(c, str))
 
 
 def _(s): return s  # TODO: i18n
@@ -171,14 +169,16 @@ class CropTask(object):
 
             print(" ".join(command))
             subprocess.call(command)
-            subprocess.call([
+            exif_cmd = [
                 "exiftool", "-overwrite_original", "-n",
                 "-Orientation=1",
                 "-IFD1:All=",
                 "-EXIF:ImageWidth=", "-EXIF:ImageHeight=",
                 "-EXIF:ExifImageWidth=", "-EXIF:ExifImageHeight=",
                 target,
-            ])
+            ]
+            print(" ".join(exif_cmd))
+            subprocess.check_call(exif_cmd)
             self.log.log(_("Cropped to %s") % shortname)
 
 class DragManagerBase(object):
