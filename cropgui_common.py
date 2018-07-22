@@ -157,6 +157,7 @@ class CropTask(object):
                     command += ["-rotate", rotation]
                 command += [
                     "-copy", "all",
+                    "-progressive",
                     "-crop", cropspec,
                     "-outfile", target,
                     image_name,
