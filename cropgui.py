@@ -296,6 +296,7 @@ try:
             image_name=image_name,
             corners=drag.get_corners(),
             rotation=drag.rotation,
+            grayscale=False,
             target=target,
         ))
 finally:

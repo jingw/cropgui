@@ -74,6 +74,7 @@ class DragManager(DragManagerBase):
         w.connect('delete-event', self.close)
         w.connect('key-press-event', self.key)
         g['toolbutton1'].connect('clicked', self.done)
+        g['cropgrayscale'].connect('clicked', self.done_grayscale)
         g['toolbutton2'].connect('clicked', self.escape)
         g['toolbutton3'].connect('clicked', self.ccw)
         g['toolbutton4'].connect('clicked', self.cw)
@@ -126,6 +127,12 @@ class DragManager(DragManagerBase):
 
     def done(self, *args):
         self.result = 1
+        self.grayscale = False
+        self.loop.quit()
+
+    def done_grayscale(self, *args):
+        self.result = 1
+        self.grayscale = True
         self.loop.quit()
 
     def escape(self, *args):
@@ -283,6 +290,7 @@ class App:
                 image_name=image_name,
                 corners=drag.get_corners(),
                 rotation=drag.rotation,
+                grayscale=drag.grayscale,
                 target=target,
             ))
 

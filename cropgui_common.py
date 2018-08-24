@@ -95,7 +95,7 @@ ncpus = ncpus()
 
 CropRequest = namedtuple(
     "CropRequest",
-    ["image", "image_name", "corners", "rotation", "target"]
+    ["image", "image_name", "corners", "rotation", "grayscale", "target"]
 )
 
 
@@ -153,6 +153,8 @@ class CropTask(object):
                 command = ["nice", "jpegtran"]
                 if rotation != "none":
                     command += ["-rotate", rotation]
+                if task.grayscale:
+                    command.append("-grayscale")
                 command += [
                     "-copy", "all",
                     "-progressive",
