@@ -145,11 +145,8 @@ class CropTask(object):
             else:
                 rotation = "none"
 
-            # Copy file if no cropping or rotation.
-            if (r + b - l - t) == (image.width + image.height) and rotation == "none":
-                command = ["nice", "cp", image_name, target]
             # JPEG crop uses jpegtran
-            elif image.format == "JPEG":
+            if image.format == "JPEG":
                 command = ["nice", "jpegtran"]
                 if rotation != "none":
                     command += ["-rotate", rotation]
