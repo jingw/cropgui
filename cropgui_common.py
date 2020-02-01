@@ -169,8 +169,8 @@ class CropTask(object):
             print(" ".join(command))
             subprocess.call(command)
             exif_cmd = [
-                "exiftool", "-overwrite_original", "-n",
-                "-Orientation=1",
+                "exiftool", "-overwrite_original",
+                "-Orientation=",
                 "-IFD1:All=",
                 "-EXIF:ImageWidth=", "-EXIF:ImageHeight=",
                 "-EXIF:ExifImageWidth=", "-EXIF:ExifImageHeight=",
