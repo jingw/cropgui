@@ -16,7 +16,6 @@
 from collections import namedtuple
 
 from PIL import Image
-from PIL import ImageFilter
 from PIL import ImageDraw
 import subprocess
 import threading
@@ -215,10 +214,8 @@ class DragManagerBase(object):
         self.apply_rotation(image)
         self.top, self.bottom = self.fix(0, self.h, self.h, self.round_y, self.rotation in (3, 8))
         self.left, self.right = self.fix(0, self.w, self.w, self.round_x, self.rotation in (3, 6))
-        blurred = image.copy()
         mult = len(self.image.mode) # replicate filter for L, RGB, RGBA
-        self.blurred = image.copy().filter(
-            ImageFilter.SMOOTH_MORE).point([x/2 for x in range(256)] * mult)
+        self.blurred = image.copy().point([x/2 for x in range(256)] * mult)
         self.xor = image.copy().point([x ^ 128 for x in range(256)] * mult)
         self.image_set()
         self.render()
