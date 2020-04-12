@@ -85,7 +85,8 @@ class DragManager(DragManagerBase):
         self.rotate_cw()
 
     def coords(self, event):
-        return event.x, event.y
+        monitor_scale = self.g['image1'].get_scale_factor()
+        return event.x * monitor_scale, event.y * monitor_scale
 
     def press(self, w, event):
         if event.type == gdk.EventType._2BUTTON_PRESS:
@@ -181,7 +182,8 @@ class DragManager(DragManagerBase):
         else:
             rendered = self.rendered()
             rendered = rendered.convert('RGB')
-            i.set_size_request(*rendered.size)
+            monitor_scale = i.get_scale_factor()
+            i.set_size_request(rendered.size[0] / monitor_scale, rendered.size[1] / monitor_scale)
             try:
                 image_data = rendered.tostring()
             except:
@@ -201,7 +203,8 @@ class DragManager(DragManagerBase):
             g['pos_height'].set_text('%d' % (bb-tt))
             g['pos_ratio'].set_text(self.describe_ratio())
 
-        i.set_from_pixbuf(pixbuf)
+            surface = gdk.cairo_surface_create_from_pixbuf(pixbuf, monitor_scale, None)
+            i.set_from_surface(surface)
 
         return False
 
