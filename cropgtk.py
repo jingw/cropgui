@@ -269,7 +269,7 @@ class App:
                 continue
             image_type = imghdr.what(image_name)
             drag.image = thumbnail
-            drag.rotation = 1
+            assert drag.rotation == 1
             rotation = image_rotation(image)
             if rotation in (3,6,8):
                 while drag.rotation != rotation:
