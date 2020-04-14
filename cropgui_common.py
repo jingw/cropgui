@@ -211,7 +211,6 @@ class DragManagerBase(object):
 
     def image_or_rotation_changed(self):
         self._image = image = self.apply_rotation(self._orig_image)
-        self.apply_rotation(image)
         self.top, self.bottom = self.fix(0, self.h, self.h, self.round_y, self.rotation in (3, 8))
         self.left, self.right = self.fix(0, self.w, self.w, self.round_x, self.rotation in (3, 6))
         mult = len(self.image.mode) # replicate filter for L, RGB, RGBA
